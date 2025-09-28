@@ -10,20 +10,18 @@ src/
     ├── common/
     │   ├── constants/
     │   ├── dependency_injectors/
-    │   ├── extensions/
-    │   ├── results/
+    │   ├── enums/
     │   ├── routes/
-    │   ├── services/
-    │   ├── states/
-    │   └── widgets/
+    │   └── services/
     └── features/
-        ├── settings/
+        ├── kanban/
         │   ├── models/
         │   ├── repositories/
         │   ├── routes/
         │   ├── view_models/
-        │   └── views/
-        └── users/
+        │   ├── views/
+        │   └── widgets/
+        └── settings/
             ├── models/
             ├── repositories/
             ├── routes/
