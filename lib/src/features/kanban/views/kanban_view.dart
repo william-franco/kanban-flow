@@ -20,7 +20,18 @@ class _KanbanViewState extends State<KanbanView> {
   @override
   void initState() {
     super.initState();
-    widget.kanbanViewModel.getAllTasks();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _getAllTasks();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> _getAllTasks() async {
+    await widget.kanbanViewModel.getAllTasks();
   }
 
   @override
@@ -29,6 +40,12 @@ class _KanbanViewState extends State<KanbanView> {
       appBar: AppBar(
         title: const Text('Kanban Flow'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh_outlined),
+            onPressed: () async {
+              await _getAllTasks();
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             onPressed: () {
@@ -67,7 +84,7 @@ class _KanbanViewState extends State<KanbanView> {
         onPressed: () async {
           final result = await context.push(KanbanRoutes.addKanban);
           if (result == true) {
-            widget.kanbanViewModel.getAllTasks();
+            await _getAllTasks();
           }
         },
         child: const Icon(Icons.add),
