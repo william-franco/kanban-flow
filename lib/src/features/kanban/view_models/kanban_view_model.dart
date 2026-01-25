@@ -41,8 +41,8 @@ class KanbanViewModelImpl extends _ViewModel implements KanbanViewModel {
     getAllTasks();
   }
 
-  void _emit(KanbanModel newValue) {
-    _kanbanModel = newValue;
+  void _emit(KanbanModel newState) {
+    _kanbanModel = newState;
     notifyListeners();
     debugPrint('KanbanViewModel: ${kanbanModel.done.length}');
   }
