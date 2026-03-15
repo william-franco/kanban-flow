@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kanban_flow/src/common/enums/task_status_enum.dart';
+import 'package:kanban_flow/src/common/state_management/state_management.dart';
 import 'package:kanban_flow/src/features/kanban/models/task_model.dart';
 import 'package:kanban_flow/src/features/kanban/routes/kanban_routes.dart';
 import 'package:kanban_flow/src/features/kanban/view_models/kanban_view_model.dart';
@@ -62,17 +63,23 @@ class _KanbanViewState extends State<KanbanView> {
             scrollDirection: Axis.vertical,
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: ListenableBuilder(
-                listenable: widget.kanbanViewModel,
-                builder: (context, child) {
+              child: StateBuilderWidget<KanbanViewModel, KanbanModel>(
+                viewModel: widget.kanbanViewModel,
+                builder: (context, kanbanModel) {
                   return isWideScreen
                       ? Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: _buildKanbanColumns(isWideScreen),
+                          children: _buildKanbanColumns(
+                            isWideScreen,
+                            kanbanModel,
+                          ),
                         )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: _buildKanbanColumns(isWideScreen),
+                          children: _buildKanbanColumns(
+                            isWideScreen,
+                            kanbanModel,
+                          ),
                         );
                 },
               ),
@@ -92,30 +99,30 @@ class _KanbanViewState extends State<KanbanView> {
     );
   }
 
-  List<Widget> _buildKanbanColumns(bool isWideScreen) {
+  List<Widget> _buildKanbanColumns(bool isWideScreen, KanbanModel kanbanModel) {
     final columns = [
       _buildColumnWidget(
         color: Colors.brown,
         title: 'To do',
-        items: widget.kanbanViewModel.kanbanModel.todo,
+        items: kanbanModel.todo,
         status: TaskStatusEnum.todo,
       ),
       _buildColumnWidget(
         color: Colors.green,
         title: 'In progress',
-        items: widget.kanbanViewModel.kanbanModel.inProgress,
+        items: kanbanModel.inProgress,
         status: TaskStatusEnum.inProgress,
       ),
       _buildColumnWidget(
         color: Colors.red,
         title: 'Under Analysis',
-        items: widget.kanbanViewModel.kanbanModel.analise,
+        items: kanbanModel.analise,
         status: TaskStatusEnum.inAnalise,
       ),
       _buildColumnWidget(
         color: Colors.blue,
         title: 'Completed',
-        items: widget.kanbanViewModel.kanbanModel.done,
+        items: kanbanModel.done,
         status: TaskStatusEnum.done,
       ),
     ];
