@@ -3,7 +3,12 @@
 Under construction.
 
 
-## Directory tree
+## Project Structure
+
+The project is structured in a modular way, where each new functionality should be a new module containing its particularities, and things common to the entire project should be in the `common` module.
+
+
+## Folder architecture
 
 ```
 src/
@@ -11,17 +16,20 @@ src/
     │   ├── constants/
     │   ├── dependency_injectors/
     │   ├── enums/
+    │   ├── extensions/
+    │   ├── patterns/
     │   ├── routes/
-    │   └── services/
+    │   ├── services/
+    │   ├── state_management/
+    │   └── widgets/
     └── features/
-        ├── kanban/
+        ├── feature_one/
         │   ├── models/
         │   ├── repositories/
         │   ├── routes/
         │   ├── view_models/
-        │   ├── views/
-        │   └── widgets/
-        └── settings/
+        │   └── views/
+        └── feature_two/
             ├── models/
             ├── repositories/
             ├── routes/
