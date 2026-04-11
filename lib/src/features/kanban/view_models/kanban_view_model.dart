@@ -7,8 +7,6 @@ import 'package:kanban_flow/src/features/kanban/repositories/kanban_repository.d
 typedef _ViewModel = StateManagement<KanbanModel>;
 
 abstract interface class KanbanViewModel extends _ViewModel {
-  KanbanViewModel(super.initialState);
-
   void getAllTasks();
   void updateTaskStatus(String taskId, TaskStatusEnum newStatus);
   void addTask(String title, TaskStatusEnum initialStatus);
@@ -17,7 +15,10 @@ abstract interface class KanbanViewModel extends _ViewModel {
 class KanbanViewModelImpl extends _ViewModel implements KanbanViewModel {
   final KanbanRepository kanbanRepository;
 
-  KanbanViewModelImpl({required this.kanbanRepository}) : super(KanbanModel());
+  KanbanViewModelImpl({required this.kanbanRepository});
+
+  @override
+  KanbanModel build() => KanbanModel();
 
   @override
   void getAllTasks() {
