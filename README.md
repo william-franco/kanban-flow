@@ -1,12 +1,26 @@
 # Kanban Flow
 
-Kanban board task manager.
+Kanban-style task board with columns and draggable cards.
+
+View models coordinate board state while repositories persist task data locally.
+
+Modular features keep board, settings, and shared UI concerns separated.
+
+## Structure
+
+```mermaid
+flowchart LR
+  BoardView --> BoardViewModel
+  BoardViewModel --> TaskRepository
+  TaskRepository --> LocalPersistence
+  BoardView --> DragDropColumns
+```
 
 ## Stack
 
 | Technology | Version |
 |------------|---------|
-| Dart SDK | ^3.13.2 |
+| Dart SDK | ^3.13.3 |
 | cupertino_icons | ^1.0.8 |
 | get_it | ^9.2.1 |
 | go_router | ^17.2.3 |
