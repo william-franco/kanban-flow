@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:kanban_flow/src/common/services/storage_service.dart';
+import 'package:kanban_flow/src/common/services/url_launcher_service.dart';
 import 'package:kanban_flow/src/features/kanban/repositories/kanban_repository.dart';
 import 'package:kanban_flow/src/features/kanban/view_models/kanban_view_model.dart';
 import 'package:kanban_flow/src/features/settings/repositories/setting_repository.dart';
@@ -8,6 +9,9 @@ import 'package:kanban_flow/src/features/settings/view_models/setting_view_model
 final locator = GetIt.instance;
 
 void dependencyInjector() {
+  locator.registerLazySingleton<UrlLauncherService>(
+    () => UrlLauncherServiceImpl(),
+  );
   _startStorageService();
   _startFeatureKanban();
   _startFeatureSetting();
@@ -26,7 +30,10 @@ void _startFeatureKanban() {
 
 void _startFeatureSetting() {
   locator.registerCachedFactory<SettingRepository>(
-    () => SettingRepositoryImpl(storageService: locator<StorageService>()),
+    () => SettingRepositoryImpl(
+      storageService: locator<StorageService>(),
+      urlLauncherService: locator<UrlLauncherService>(),
+    ),
   );
   locator.registerLazySingleton<SettingViewModel>(
     () => SettingViewModelImpl(settingRepository: locator<SettingRepository>()),

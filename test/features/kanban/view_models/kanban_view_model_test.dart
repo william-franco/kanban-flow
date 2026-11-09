@@ -122,9 +122,8 @@ void main() {
         'should call repository.updateTaskStatus with the correct arguments',
         () {
           // arrange
-          when(
-            mockKanbanRepository.updateTaskStatus(any, any),
-          ).thenReturn(null);
+          when(mockKanbanRepository.updateTaskStatus(any, any))
+              .thenReturn(null);
           when(mockKanbanRepository.findAllTasks()).thenReturn(tKanbanModel);
 
           // act
@@ -141,9 +140,8 @@ void main() {
         'should call getAllTasks after updateTaskStatus to refresh state',
         () {
           // arrange
-          when(
-            mockKanbanRepository.updateTaskStatus(any, any),
-          ).thenReturn(null);
+          when(mockKanbanRepository.updateTaskStatus(any, any))
+              .thenReturn(null);
           when(mockKanbanRepository.findAllTasks()).thenReturn(tKanbanModel);
 
           // act
@@ -181,9 +179,8 @@ void main() {
         'should notify listeners exactly once per updateTaskStatus call',
         () {
           // arrange
-          when(
-            mockKanbanRepository.updateTaskStatus(any, any),
-          ).thenReturn(null);
+          when(mockKanbanRepository.updateTaskStatus(any, any))
+              .thenReturn(null);
           when(mockKanbanRepository.findAllTasks()).thenReturn(tKanbanModel);
 
           int notifyCount = 0;
@@ -201,9 +198,8 @@ void main() {
         'should propagate exception when repository.updateTaskStatus throws',
         () {
           // arrange
-          when(
-            mockKanbanRepository.updateTaskStatus(any, any),
-          ).thenThrow(Exception('Task with id 99 not found'));
+          when(mockKanbanRepository.updateTaskStatus(any, any))
+              .thenThrow(Exception('Task with id 99 not found'));
 
           // act & assert
           expect(
@@ -232,9 +228,8 @@ void main() {
         viewModel.addTask('New task', TaskStatusEnum.todo);
 
         // assert
-        verify(
-          mockKanbanRepository.addTask('New task', TaskStatusEnum.todo),
-        ).called(1);
+        verify(mockKanbanRepository.addTask('New task', TaskStatusEnum.todo))
+            .called(1);
       });
 
       test('should call getAllTasks after addTask to refresh state', () {
@@ -300,9 +295,8 @@ void main() {
           );
         }
 
-        verify(
-          mockKanbanRepository.addTask(any, any),
-        ).called(TaskStatusEnum.values.length);
+        verify(mockKanbanRepository.addTask(any, any))
+            .called(TaskStatusEnum.values.length);
       });
     });
   });
